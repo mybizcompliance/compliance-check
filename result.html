@@ -10,6 +10,8 @@
 <div class="container">
     <h1>Your Compliance Score</h1>
 
+    <h3 id="bizName"></h3> <!-- Business Name Added -->
+
     <h2 id="scoreDisplay"></h2>
 
     <p id="message"></p>
@@ -20,8 +22,10 @@
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const score = urlParams.get("score");
+    const business = urlParams.get("business");
 
     document.getElementById("scoreDisplay").innerText = score + "%";
+    document.getElementById("bizName").innerText = business ? business : "";
 
     let msg = "";
 
