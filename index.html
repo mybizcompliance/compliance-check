@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Small Business Compliance Health Check</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Small Business Compliance Health Check</h1>
+        <p>Answer a few questions to get your free compliance score and report.</p>
+
+        <form id="complianceForm">
+
+            <h3>Business Registration</h3>
+            <label>CIPC Registered?</label>
+            <select name="cipc" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>Are annual returns up to date?</label>
+            <select name="returns" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <h3>Tax</h3>
+            <label>Do you have a tax number?</label>
+            <select name="taxNumber" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>Are income tax returns up to date?</label>
+            <select name="taxReturns" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>VAT Registered?</label>
+            <select name="vat" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <h3>Employees</h3>
+            <label>UIF Registered?</label>
+            <select name="uif" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>PAYE Registered?</label>
+            <select name="paye" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <h3>Documents</h3>
+            <label>BEE Affidavit?</label>
+            <select name="bee" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label>Do you have a business bank account?</label>
+            <select name="bank" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <button type="submit">Get My Score</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
