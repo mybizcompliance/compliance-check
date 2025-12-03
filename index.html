@@ -1,98 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small Business Compliance Health Check</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bizaid — MVP (Bookkeeping + Compliance)</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <h1>Bizaid</h1>
+    <p>Small business compliance + bookkeeping (MVP)</p>
+    <nav id="nav">
+      <button onclick="showPage('dashboard')">Dashboard</button>
+      <button onclick="showPage('bookkeeping')">Bookkeeping</button>
+      <button onclick="showPage('reports')">Reports</button>
+      <button onclick="showPage('subscription')">Subscription</button>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
 
-    <div class="container">
-        <h1>Small Business Compliance Health Check</h1>
-        <p>Answer a few questions to get your free compliance score and report.</p>
+  <!-- LOGIN / SIGNUP -->
+  <section id="login-page" class="page">
+    <h2>Welcome to Bizaid</h2>
+    <div class="auth-grid">
+      <form id="loginForm" class="card">
+        <h3>Login</h3>
+        <input id="login-email" type="email" placeholder="Email" required />
+        <input id="login-password" type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
 
-        <form id="complianceForm">
+      <form id="signupForm" class="card">
+        <h3>Create account</h3>
+        <input id="signup-email" type="email" placeholder="Email" required />
+        <input id="signup-password" type="password" placeholder="Password" required />
+        <button type="submit">Sign up</button>
+      </form>
+    </div>
+  </section>
 
-            <!-- BUSINESS NAME -->
-            <label>Business Name</label>
-            <input type="text" name="businessName" required placeholder="Enter your business name">
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="page hidden">
+    <h2>Dashboard</h2>
 
-            <!-- EMAIL ADDRESS -->
-            <label>Email Address</label>
-            <input type="email" name="email" required placeholder="Enter your email address">
-
-            <!-- Disable Captcha -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-
-            <h3>Business Registration</h3>
-
-            <label>CIPC Registered?</label>
-            <select name="cipc" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <label>Are annual returns up to date?</label>
-            <select name="returns" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <h3>Tax</h3>
-
-            <label>Do you have a tax number?</label>
-            <select name="taxNumber" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <label>Are income tax returns up to date?</label>
-            <select name="taxReturns" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <label>VAT Registered?</label>
-            <select name="vat" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <h3>Employees</h3>
-
-            <label>UIF Registered?</label>
-            <select name="uif" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <label>PAYE Registered?</label>
-            <select name="paye" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <h3>Documents</h3>
-
-            <label>BEE Affidavit?</label>
-            <select name="bee" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <label>Do you have a business bank account?</label>
-            <select name="bank" required>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-
-            <button type="submit">Get My Score</button>
-        </form>
+    <div id="profileInfo" class="card">
+      <strong id="welcome"></strong>
+      <div>Subscription: <span id="subLevel">checking...</span></div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="card">
+      <h3>Compliance Generator</h3>
+      <form id="businessForm">
+        <input id="businessName" placeholder="Business name" required />
+        <input id="industry" placeholder="Industry" required />
+        <input id="province" placeholder="Province" required />
+        <button type="submit">Generate Compliance Tasks</button>
+      </form>
+      <div id="results"></div>
+    </div>
+  </section>
 
+  <!-- BOOKKEEPING PAGE -->
+  <section id="bookkeeping" class="page hidden">
+    <h2>Bookkeeping</h2>
+    <div class="flex-row">
+      <div class="card" style="flex:2;">
+        <h3>Add Transaction</h3>
+        <form id="transactionForm">
+          <select id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+
+          <input id="amount" type="number" step="0.01" placeholder="Amount" required />
+          <input id="desc" placeholder="Description" />
+          <select id="category"></select>
+
+          <input id="tdate" type="date" required />
+          <button type="submit">Save Transaction</button>
+        </form>
+
+        <button id="exportCsvBtn">Export CSV</button>
+      </div>
+
+      <div class="card" style="flex:3;">
+        <h3>Transactions</h3>
+        <div id="transactionsList">Loading...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORTS -->
+  <section id="reports" class="page hidden">
+    <h2>Reports</h2>
+    <div class="card">
+      <label>Month</label>
+      <input id="reportMonth" type="month" />
+      <button id="generateReportBtn">Generate</button>
+      <button id="printReportBtn">Print / Save PDF</button>
+      <div id="reportResult"></div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIPTION PAGE -->
+  <section id="subscription" class="page hidden">
+    <h2>Subscription</h2>
+    <div class="card">
+      <p>Starter plan — R49 / month — Medium bookkeeping (categories, monthly report, CSV, email reminders)</p>
+      <button id="subscribeBtn">Subscribe with PayFast (Placeholder)</button>
+      <div id="subscriptionStatus">Checking...</div>
+    </div>
+
+    <div class="card">
+      <h3>Manage categories (Starter only)</h3>
+      <div id="categoryManager"></div>
+    </div>
+  </section>
+
+  <footer>
+    <small>Made with ❤️ — Bizaid MVP</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
