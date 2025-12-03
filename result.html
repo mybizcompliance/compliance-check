@@ -10,11 +10,16 @@
 <div class="container">
     <h1>Your Compliance Score</h1>
 
-    <h3 id="bizName"></h3> <!-- Business Name Added -->
+    <h3 id="bizName"></h3>
 
     <h2 id="scoreDisplay"></h2>
 
     <p id="message"></p>
+
+    <button onclick="window.location.href='payfast-subscribe.html'" 
+        style="margin-top:20px; background:#FF9800;">
+        Unlock Full Compliance Report – R49/month
+    </button>
 
     <a href="index.html"><button>Check Again</button></a>
 </div>
@@ -25,7 +30,7 @@
     const business = urlParams.get("business");
 
     document.getElementById("scoreDisplay").innerText = score + "%";
-    document.getElementById("bizName").innerText = business ? business : "";
+    document.getElementById("bizName").innerText = business ?? "";
 
     let msg = "";
 
