@@ -6,7 +6,6 @@ document.getElementById("complianceForm").addEventListener("submit", function(e)
     let businessName = form.get("businessName");
     let email = form.get("email");
 
-    // Calculate score
     let score = 0;
     let total = 9;
 
@@ -18,12 +17,13 @@ document.getElementById("complianceForm").addEventListener("submit", function(e)
 
     let percentage = Math.round((score / total) * 100);
 
-    // SEND EMAIL TO YOU (LEAD CAPTURE)
-    fetch("https://formsubmit.co/YOUR-FORMSUBMIT-URL", {
+    // SEND TO FORMSUBMIT (replace placeholder email)
+    fetch("https://formsubmit.co/YOUR-FORMSUBMIT-EMAIL", {
         method: "POST",
         body: form
     });
 
-    // REDIRECT USER TO RESULTS PAGE
-    window.location.href = "result.html?score=" + percentage + "&business=" + encodeURIComponent(businessName);
+    window.location.href = 
+        "result.html?score=" + percentage + 
+        "&business=" + encodeURIComponent(businessName);
 });
