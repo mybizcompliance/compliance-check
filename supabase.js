@@ -1,5 +1,5 @@
-// initialize client
-let supabaseClient = null;
+  let supabaseClient = null;
+
 if (BACKEND_MODE === "supabase") {
   supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
@@ -18,25 +18,29 @@ async function logout() {
   location.reload();
 }
 
-// PROFILE helper
+// PROFILE
 async function ensureProfile(user) {
-  // create profile if not exists
-  const { data: existing } = await supabaseClient.from('profiles').select('*').eq('id', user.id).limit(1);
+  const { data: existing } = await supabaseClient.from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .limit(1);
+
   if (!existing || existing.length === 0) {
-    await supabaseClient.from('profiles').insert([{ id: user.id, email: user.email, subscription_level: 'free' }]);
+    await supabaseClient.from('profiles').insert([
+      { id: user.id, email: user.email, subscription_level: 'free' }
+    ]);
     return { id: user.id, email: user.email, subscription_level: 'free' };
   }
+
   return existing[0];
 }
 
-async function getProfile(userId) {
-  const { data } = await supabaseClient.from('profiles').select('*').eq('id', userId).limit(1);
-  return data && data[0];
-}
-
 async function setSubscription(userId, level) {
-  // Placeholder - in production call from your server/webhook after payment verification.
-  const { error } = await supabaseClient.from('profiles').update({ subscription_level: level }).eq('id', userId);
+  const { error } = await supabaseClient
+    .from('profiles')
+    .update({ subscription_level: level })
+    .eq('id', userId);
+
   return !error;
 }
 
@@ -53,13 +57,22 @@ async function saveTransaction(tx) {
 }
 
 async function getTransactions(userId) {
-  const { data, error } = await supabaseClient.from('transactions').select('*').eq('user_id', userId).order('tdate', { ascending: false });
-  if (error) return [];
-  return data;
+  const { data } = await supabaseClient
+    .from('transactions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('tdate', { ascending: false });
+
+  return data || [];
 }
 
 async function getCategories(userId) {
-  const { data } = await supabaseClient.from('categories').select('*').eq('user_id', userId).order('name', { ascending: true });
+  const { data } = await supabaseClient
+    .from('categories')
+    .select('*')
+    .eq('user_id', userId)
+    .order('name');
+
   return data || [];
 }
 
