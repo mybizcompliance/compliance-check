@@ -2,7 +2,7 @@
 const BACKEND_MODE = "supabase";
 
 // Supabase
-const SUPABASE_URL = "https://rqhwelbfjnhzsihjpiub.supabase.co";
+const SUPABASE_URL = "";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxaHdlbGJmam5oenNpaGpwaXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4MTI0MzIsImV4cCI6MjA4MDM4ODQzMn0.T5ui1VXuAGV7sLOXw3Phfy3LS8fbDujFgLBR-b6pI80";
 
 // Google Sheets (optional)
